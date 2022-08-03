@@ -36,4 +36,8 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  env: {
+    API_BASE_URL: "https://api.hiskio.com/v2"
+  }
 }
