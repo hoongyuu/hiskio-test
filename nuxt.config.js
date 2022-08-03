@@ -1,14 +1,14 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'hiskio',
+    title: 'Hiskio',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'zh-Hant',
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover' },
+      { hid: 'description', name: 'description', content: 'HiSKIO 提供專業的線上教學，讓學習專業技能更快速簡單。最專業、最正確、最實用的優選師資。' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
