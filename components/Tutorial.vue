@@ -112,6 +112,9 @@
         ></a>
       </div>
     </div>
+    <div>
+    <h2>dsadsadsa</h2>
+    </div>
   </div>
 </template>
 
@@ -120,3 +123,11 @@ export default {
   name: 'NuxtTutorial',
 }
 </script>
+
+<style lang="scss">
+div {
+  h2 {
+    font-size: 50px;
+  }
+}
+</style>
