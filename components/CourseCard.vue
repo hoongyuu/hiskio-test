@@ -97,7 +97,6 @@ import duration from 'dayjs/plugin/duration';
 import _ from "lodash";
 import { Course, CoursePrice, Lecturer } from '@/interfaces';
 import { getThousandSeparator } from "@/utils";
-import { addCart } from '@/services/api'
 
 extend(duration)
 
@@ -131,16 +130,8 @@ export default Vue.extend({
   mounted() {},
   methods: {
     getThousandSeparator,
-    async addCart(id: number) {
-      try {
-        const data = await addCart({
-          items: [{ id, coupon: '' }],
-          coupons: []
-        })
-        console.log('addCart ', data)
-      } catch (error) {
-        console.log('addCart error ', error)
-      }
+    addCart(id: number) {
+      this.$emit('addCart', id)
     },
   },
 })

@@ -2,7 +2,7 @@
   <header
     class="sticky top-0 left-0 inset-x-0 z-50 flex items-center bg-white h-[50px]"
   >
-    <div class="container flex justify-between items-center px-[15px] md:px-0">
+    <div class="container flex justify-between items-center px-[15px]">
       <div class="flex items-center">
         <!-- Header Logo -->
         <div class="w-[66px] md:w-[100px] mr-[9px]">

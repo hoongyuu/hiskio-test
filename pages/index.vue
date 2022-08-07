@@ -20,8 +20,8 @@
             </div>
 
             <div
-              v-for="(item, index) in 3"
-              :key="index"
+              v-for="(cart, index) in carts.data"
+              :key="cart.id"
               class="px-[12px] py-[20px] md:pr-0 md:grid md:grid-cols-12 md:border-t md:border-[#D9D9D9]"
               :class="{
                 'border-t border-[#E5E5E5]': index >= 1,
@@ -33,7 +33,7 @@
                     <div class="w-[62px] h-[34px] md:w-[120px] md:h-[68px]">
                       <img
                         class="img-center"
-                        src="https://picsum.photos/seed/picsum/240/136"
+                        :src="cart.image"
                         alt="course-cover"
                       />
                     </div>
@@ -41,10 +41,10 @@
                   <h3
                     class="flex-1 text-sm text-[#595959] md:text-md leading-[18px] md:leading-[22px] mr-[27px] md:mr-0"
                   >
-                    SQL Server實戰效能調校第四部曲：縱橫交易處理
+                    {{ cart.name }}
                   </h3>
 
-                  <button type="button" class="md:hidden min-w-[24px]">
+                  <button type="button" class="md:hidden min-w-[24px]" @click="deleteCart(cart.id)">
                     <img
                       src="@/assets/images/delete.svg"
                       alt="delete icon"
@@ -55,10 +55,11 @@
               </div>
 
               <div class="hidden md:block md:col-span-3">
-                <div class="flex flex-col justify-center items-center">
-                  <div class="text-sm text-[#BFBFBF] line-through">7,900</div>
-                  <div class="text-lg text-[#8C8C8C]">5,900</div>
+                <div class="flex flex-col justify-center items-center h-full">
+                  <div v-if="cart.subtotal !== cart.total" class="text-sm text-[#BFBFBF] line-through">{{ getThousandSeparator(cart.subtotal) }}</div>
+                  <div class="text-lg text-[#8C8C8C]">{{ getThousandSeparator(cart.total) }}</div>
                   <div
+                    v-if="cart.subtotal !== cart.total"
                     class="text-sm text-[#434343] rounded border border-[#434343] px-[3px]"
                   >
                     募資優惠
@@ -70,8 +71,9 @@
                 class="flex justify-between items-center md:block md:col-span-2"
               >
                 <div class="flex items-center md:hidden">
-                  <div class="text-sm text-[#8C8C8C] mr-[6px]">5,900</div>
+                  <div class="text-sm text-[#8C8C8C] mr-[6px]">{{ getThousandSeparator(cart.total) }}</div>
                   <div
+                    v-if="cart.subtotal !== cart.total"
                     class="text-xs text-[#434343] rounded border border-[#434343] px-[3px]"
                   >
                     募資優惠
@@ -80,14 +82,14 @@
                 <div
                   class="font-medium md:font-normal text-[#595959] flex justify-center items-center h-full"
                 >
-                  1,900
+                  {{ getThousandSeparator(cart.total) }}
                 </div>
               </div>
 
               <div class="hidden md:block md:col-span-1">
                 <div class="flex justify-center items-center h-full">
                   <button type="button">
-                    <img src="@/assets/images/delete.svg" alt="delete icon" />
+                    <img src="@/assets/images/delete.svg" alt="delete icon" @click="deleteCart(cart.id)" />
                   </button>
                 </div>
               </div>
@@ -143,13 +145,13 @@
             <div class="">
               <div class="flex justify-between mb-[52px] md:mb-[10px]">
                 <h4 class="text-[#8C8C8C]">金額</h4>
-                <span class="text-sm text-[#595959]">$10,800</span>
+                <span class="text-sm text-[#595959]">${{ getThousandSeparator(carts.subtotal || 0) }}</span>
               </div>
 
               <div
                 class="text-right text-[28px] text-[#434343] md:text-[32px] mb-[15px] md:mb-[5px]"
               >
-                $10,800
+                ${{ getThousandSeparator(carts.total || 0) }}
               </div>
 
               <button
@@ -181,6 +183,7 @@
             :key="course.id"
             :course="course"
             class="mb-[12px] md:mb-0"
+            @addCart="addCart"
           />
         </div>
       </div>
@@ -190,8 +193,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { login, getCourses, getMe } from '@/services/api'
-import { setToken } from '@/utils'
+import _ from 'lodash'
+import { login, getCourses, getMe, getCarts, deleteCart, addCart } from '@/services/api'
+import { setToken, getThousandSeparator } from '@/utils'
 import CourseCard from '@/components/CourseCard.vue'
 
 export default Vue.extend({
@@ -201,15 +205,18 @@ export default Vue.extend({
   },
   data() {
     return {
-      courses: []
+      courses: [],
+      carts: {}
     }
   },
   computed: {},
-  mounted() {
-    this.me()
+  async mounted() {
+    await this.me()
     this.fetchCourses()
+    this.getCarts()
   },
   methods: {
+    getThousandSeparator,
     async login() {
       try {
         const data = await login({
@@ -242,6 +249,40 @@ export default Vue.extend({
         console.log('fetchCourses error ', error)
       }
     },
+    async getCarts() {
+      try {
+        const data = await getCarts()
+        this.carts = data
+        console.log('getCarts ', data)
+        console.log('this.carts', this.carts)
+      } catch (error) {
+        console.log('getCarts error', error)
+      }
+    },
+    async addCart(id: number) {
+      try {
+        const data = await addCart({
+          items: [{ id, coupon: '' }],
+          coupons: []
+        })
+        this.getCarts()
+        console.log('addCart ', data)
+      } catch (error) {
+        console.log('addCart error ', error)
+      }
+    },
+    deleteCart: _.debounce(async function(id: number) {
+      try {
+        const data = await deleteCart({
+          items: [{ id, coupon: '' }],
+          coupons: []
+        })
+        this.getCarts()
+        console.log('deleteCart ', data)
+      } catch (error) {
+        console.log('deleteCart error', error)
+      }
+    }, 200)
   },
 })
 </script>
