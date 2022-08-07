@@ -108,6 +108,7 @@
                   type="text"
                   placeholder="請輸入 HiSKIO ID"
                   class="flex-1 text-sm"
+                  @blur="handleValidate('account')"
                 />
               </div>
 
@@ -121,6 +122,7 @@
                   type="text"
                   placeholder="請輸入登入密碼"
                   class="flex-1 text-sm"
+                  @blur="handleValidate('password')"
                 />
               </div>
             </div>
@@ -165,13 +167,18 @@
 <script lang="ts">
 import Vue from 'vue'
 import _ from 'lodash'
-import { setToken } from '@/utils'
+import { setToken, validate, account as accountRule, password as passwordRule } from '@/utils'
 import { login } from '@/services/api'
 
 const DEFAULT_FORM = {
   account: '',
   password: ''
 }
+
+const rules = {
+  account: accountRule,
+  password: passwordRule,
+};
 
 export default Vue.extend({
   name: 'ComponentsLoginDialog',
@@ -183,7 +190,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      form: _.cloneDeep(DEFAULT_FORM)
+      form: _.cloneDeep(DEFAULT_FORM),
+      errorMessage: '',
     }
   },
   watch: {
@@ -200,18 +208,45 @@ export default Vue.extend({
   },
   methods: {
     async login() {
+      if (!(await this.handleValidate())) {
+        return
+      }
+
       try {
         const data = await login({
-          account: 'Cheeto',
-          password: 'dsadsa123123',
+          account: this.form.account,
+          password: this.form.password,
           confirm: true,
         })
         setToken(data.access_token)
         console.log('login', data)
+        this.$emit('close')
       } catch (error) {
         console.log('login error ', error)
       }
     },
+    async handleValidate(type?: string): Promise<boolean> {
+      const descriptor = type ? _.pick(rules, [type]) : rules;
+      const form = type ? _.pick(this.form, [type]) : this.form;
+
+      if (_.isEmpty(descriptor)) {
+        return false;
+      }
+      const { errors } = await validate(descriptor, form);
+
+      // 驗證通過
+      if (!errors) {
+        this.errorMessage = '';
+        return true;
+      }
+
+      // 驗證失敗
+      const message = _.get(_.head(errors), 'message', '');
+      this.errorMessage = message;
+      console.log('errors ', errors)
+
+      return false;
+    }
   },
 })
 </script>
