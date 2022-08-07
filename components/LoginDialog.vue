@@ -154,6 +154,13 @@
               </p>
             </div>
 
+              <div
+                v-if="errorMessages.confirm"
+                class="text-center text-xs text-hiskio-red mb-[10px]"
+              >
+                {{ errorMessages.confirm }}
+              </div>
+
             <button
               type="button"
               class="w-full py-[8px] text-center rounded-md bg-primary text-white mb-[20px]"
@@ -193,7 +200,13 @@ import {
 } from '@/utils'
 import { login } from '@/services/api'
 
-const DEFAULT_FORM = {
+interface Form {
+  account: string
+  password: string
+  confirm: boolean | string
+}
+
+const DEFAULT_FORM: Form = {
   account: '',
   password: '',
   confirm: false,
@@ -232,9 +245,16 @@ export default Vue.extend({
   mounted() {},
   methods: {
     async login() {
-      if (!(await this.handleValidate()) || !this.form.confirm) {
+      if (!(await this.handleValidate())) {
         return
       }
+
+      if (!this.form.confirm) {
+        this.errorMessages.confirm = '請同意使用者及隱私權政策'
+        return
+      }
+
+      this.errorMessages.confirm = ''
 
       try {
         const data = await login({
