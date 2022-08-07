@@ -37,8 +37,8 @@
 
       <template v-if="isLogin">
         <div class="hidden md:flex md:items-center">
-          <button type="button" class="mr-[16px]">我想開課</button>
-          <button type="button" class="mr-[16px]">我想學習</button>
+          <button type="button" class="mr-[16px] text-gray-600">我想開課</button>
+          <button type="button" class="mr-[16px] text-gray-600">我想學習</button>
           <button type="button" class="mr-[16px]">
             <img src="@/assets/images/cart.svg" alt="購物車" />
           </button>
@@ -50,19 +50,19 @@
 
       <template v-else>
         <div class="hidden md:flex md:items-center">
-          <button type="button" class="mr-[16px]">我想開課</button>
+          <button type="button" class="mr-[16px] text-gray-600">我想開課</button>
 
           <div class="flex items-center">
             <button
               type="button"
-              class="rounded-md text-sm text-[#178FAC] border border-[#178FAC] w-[64px] h-[32px] mr-[16px]"
+              class="rounded-md text-sm text-primary border border-primary w-[64px] h-[32px] mr-[16px]"
               @click="$emit('showLogin')"
             >
               登入
             </button>
             <button
               type="button"
-              class="rounded-md text-sm text-white border border-[#178FAC] bg-[#178FAC] w-[64px] h-[32px] mr-[16px]"
+              class="rounded-md text-sm text-white border border-primary bg-primary w-[64px] h-[32px] mr-[16px]"
               @click="$emit('showLogin')"
             >
               註冊
@@ -103,38 +103,38 @@
                     alt="大頭貼"
                   />
                 </div>
-                <h3 class="text-[#434343] font-medium">Mike Chen</h3>
+                <h3 class="text-gray-700 font-medium">Mike Chen</h3>
               </div>
 
               <nav>
                 <ul class="pt-[16px] pb-[16px]">
                   <li>
-                    <button type="button" class="py-[16px] text-[#434343]">
+                    <button type="button" class="py-[16px] text-gray-700">
                       我的課程
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="py-[16px] text-[#434343]">
+                    <button type="button" class="py-[16px] text-gray-700">
                       我的抵用券
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="py-[16px] text-[#434343]">
+                    <button type="button" class="py-[16px] text-gray-700">
                       任務板
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="py-[16px] text-[#434343]">
+                    <button type="button" class="py-[16px] text-gray-700">
                       訂單記錄
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="py-[16px] text-[#434343]">
+                    <button type="button" class="py-[16px] text-gray-700">
                       帳戶設定
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="py-[16px] text-[#434343]">
+                    <button type="button" class="py-[16px] text-gray-700">
                       我開設的課
                     </button>
                   </li>
@@ -145,13 +145,13 @@
             <div class="bg-[#FAFAFA] px-[14px]">
               <button
                 type="button"
-                class="block w-full py-[32px] text-[#434343] text-left border-b border-[#D9D9D9]"
+                class="block w-full py-[32px] text-gray-700 text-left border-b border-[#D9D9D9]"
               >
                 探索課程
               </button>
               <button
                 type="button"
-                class="block w-full py-[32px] text-[#434343] text-left"
+                class="block w-full py-[32px] text-gray-700 text-left"
               >
                 登出
               </button>
@@ -162,12 +162,12 @@
             <nav>
               <ul class="pt-[23px] pb-[16px] border-b border-[#D9D9D9]">
                 <li>
-                  <button type="button" class="py-[16px] text-[#434343]">
+                  <button type="button" class="py-[16px] text-gray-700">
                     探索課程
                   </button>
                 </li>
                 <li>
-                  <button type="button" class="py-[16px] text-[#434343]">
+                  <button type="button" class="py-[16px] text-gray-700">
                     企業方案
                   </button>
                 </li>
@@ -178,7 +178,7 @@
               <li>
                 <button
                   type="button"
-                  class="py-[16px] text-[#434343]"
+                  class="py-[16px] text-gray-700"
                   @click="$emit('showLogin')"
                 >
                   登入
@@ -187,7 +187,7 @@
               <li>
                 <button
                   type="button"
-                  class="py-[16px] font-medium text-[#178FAC]"
+                  class="py-[16px] font-medium text-primary"
                   @click="$emit('showLogin')"
                 >
                   註冊

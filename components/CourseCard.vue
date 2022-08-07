@@ -45,14 +45,14 @@
               alt="導師大頭貼"
             />
           </div>
-          <h4 class="hidden md:block text-[#8C8C8C]">
+          <h4 class="hidden md:block text-gray-500">
             {{ currentLecturer?.username }}
           </h4>
         </div>
 
         <div class="mb-[12px] md:mb-[10px]">
           <div
-            class="flex justify-between text-sm text-[#595959] mb-[12px] md:mb-[6px]"
+            class="flex justify-between text-sm text-gray-600 mb-[12px] md:mb-[6px]"
           >
             <div class="hidden md:block">{{ remainDay }}</div>
             <div>已募資{{ fundraisingRatio }}%</div>
@@ -73,11 +73,11 @@
 
         <div class="flex items-center">
           <div
-            class="text-sm text-[#434343] font-medium md:text-[22px] mr-[5px]"
+            class="text-sm text-gray-700 font-medium md:text-[22px] mr-[5px]"
           >
             ${{ getThousandSeparator(course.price) }}
           </div>
-          <div class="text-sm text-[#BFBFBF] line-through">
+          <div class="text-sm text-gray-400 line-through">
             ${{ getThousandSeparator(course.fixed_price) }}
           </div>
         </div>

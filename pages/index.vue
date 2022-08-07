@@ -6,13 +6,13 @@
       >
         <div class="mb-[50px] md:mr-[16px] md:mb-0 md:w-[calc(68%-16px)]">
           <h2
-            class="text-xl md:text-[24px] font-medium text-[#434343] mb-[20px]"
+            class="text-xl md:text-[24px] font-medium text-gray-700 mb-[20px]"
           >
             購物車
           </h2>
           <div class="hiskio-shadow bg-white md:rounded-[10px]">
             <div
-              class="hidden md:grid md:grid-cols-12 text-lg text-[#8C8C8C] text-center pt-[12px] pb-[8px]"
+              class="hidden md:grid md:grid-cols-12 text-lg text-gray-500 text-center pt-[12px] pb-[8px]"
             >
               <h4 class="col-span-6 text-left pl-[12px]">項目</h4>
               <h4 class="col-span-3">售價</h4>
@@ -39,7 +39,7 @@
                     </div>
                   </div>
                   <h3
-                    class="flex-1 text-sm text-[#595959] md:text-md leading-[18px] md:leading-[22px] mr-[27px] md:mr-0"
+                    class="flex-1 text-sm text-gray-600 md:text-md leading-[18px] md:leading-[22px] mr-[27px] md:mr-0"
                   >
                     {{ cart.name }}
                   </h3>
@@ -62,16 +62,16 @@
                 <div class="flex flex-col justify-center items-center h-full">
                   <div
                     v-if="cart.subtotal !== cart.total"
-                    class="text-sm text-[#BFBFBF] line-through"
+                    class="text-sm text-gray-400 line-through"
                   >
                     {{ getThousandSeparator(cart.subtotal) }}
                   </div>
-                  <div class="text-lg text-[#8C8C8C]">
+                  <div class="text-lg text-gray-500">
                     {{ getThousandSeparator(cart.total) }}
                   </div>
                   <div
                     v-if="cart.subtotal !== cart.total"
-                    class="text-sm text-[#434343] rounded border border-[#434343] px-[3px]"
+                    class="text-sm text-gray-700 rounded border border-gray-700 px-[3px]"
                   >
                     募資優惠
                   </div>
@@ -82,18 +82,18 @@
                 class="flex justify-between items-center md:block md:col-span-2"
               >
                 <div class="flex items-center md:hidden">
-                  <div class="text-sm text-[#8C8C8C] mr-[6px]">
+                  <div class="text-sm text-gray-500 mr-[6px]">
                     {{ getThousandSeparator(cart.total) }}
                   </div>
                   <div
                     v-if="cart.subtotal !== cart.total"
-                    class="text-xs text-[#434343] rounded border border-[#434343] px-[3px]"
+                    class="text-xs text-gray-700 rounded border border-gray-700 px-[3px]"
                   >
                     募資優惠
                   </div>
                 </div>
                 <div
-                  class="font-medium md:font-normal text-[#595959] flex justify-center items-center h-full"
+                  class="font-medium md:font-normal text-gray-600 flex justify-center items-center h-full"
                 >
                   {{ getThousandSeparator(cart.total) }}
                 </div>
@@ -116,7 +116,7 @@
 
         <div class="md:w-[32%]">
           <h3
-            class="text-xl md:text-[24px] font-medium text-[#434343] mb-[25px] md:mb-[20px]"
+            class="text-xl md:text-[24px] font-medium text-gray-700 mb-[25px] md:mb-[20px]"
           >
             小計
           </h3>
@@ -127,15 +127,15 @@
               class="pb-[85px] md:pb-[22px] mb-[16px] border-b border-[#D9D9D9]"
             >
               <div class="mb-[20px]">
-                <h4 class="text-[#8C8C8C] mb-[10px] md:mb-0">輸入折扣代碼</h4>
+                <h4 class="text-gray-500 mb-[10px] md:mb-0">輸入折扣代碼</h4>
                 <div class="flex">
                   <input
                     type="text"
-                    class="flex-1 md:flex-none border border-[#BFBFBF] rounded mr-[12px] px-[8px] h-[40px] md:w-[calc(100%-76px)] md:min-h-full"
+                    class="flex-1 md:flex-none border border-gray-400 rounded mr-[12px] px-[8px] h-[40px] md:w-[calc(100%-76px)] md:min-h-full"
                   />
                   <button
                     type="button"
-                    class="hidden md:flex md:justify-center md:items-center rounded text-[#E34A4A] bg-[#FFE6E6] w-[76px] h-[40px]"
+                    class="hidden md:flex md:justify-center md:items-center rounded text-hiskio-red bg-[#FFE6E6] w-[76px] h-[40px]"
                   >
                     確定
                   </button>
@@ -143,32 +143,32 @@
               </div>
 
               <button type="button">
-                <span class="underline text-[#595959]">選擇抵用券</span>
+                <span class="underline text-gray-600">選擇抵用券</span>
               </button>
             </div>
 
             <div class="">
               <div class="flex justify-between mb-[52px] md:mb-[10px]">
-                <h4 class="text-[#8C8C8C]">金額</h4>
-                <span class="text-sm text-[#595959]"
+                <h4 class="text-gray-500">金額</h4>
+                <span class="text-sm text-gray-600"
                   >${{ getThousandSeparator(carts.subtotal || 0) }}</span
                 >
               </div>
 
               <div
-                class="text-right text-[28px] text-[#434343] md:text-[32px] mb-[15px] md:mb-[5px]"
+                class="text-right text-[28px] text-gray-700 md:text-[32px] mb-[15px] md:mb-[5px]"
               >
                 ${{ getThousandSeparator(carts.total || 0) }}
               </div>
 
               <button
                 type="button"
-                class="w-full text-center py-[8px] mb-[12px] bg-[#E34A4A] text-white rounded"
+                class="w-full text-center py-[8px] mb-[12px] bg-hiskio-red text-white rounded"
               >
                 前往結帳
               </button>
 
-              <p class="text-xs text-[#8C8C8C]">
+              <p class="text-xs text-gray-500">
                 點擊上方按鈕即表示您已閱讀並同意
                 <span class="underline">「 HiSKIO購買與退費政策」</span>
               </p>
@@ -180,7 +180,7 @@
 
     <div class="bg-[#F5F5F5] pt-[32px] pb-[24px] md:pb-[70px] rounded-t-[10px]">
       <div class="container px-[14px]">
-        <h2 class="text-xl md:text-[24px] font-medium text-[#434343] mb-[20px]">
+        <h2 class="text-xl md:text-[24px] font-medium text-gray-700 mb-[20px]">
           募資課程
         </h2>
 

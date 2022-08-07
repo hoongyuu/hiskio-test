@@ -33,7 +33,7 @@
             <li class="mb-[12px]">
               <button
                 type="button"
-                class="flex items-center pl-[17%] text-[#595959] w-full rounded border border-[#BFBFBF] py-[10px]"
+                class="flex items-center pl-[17%] text-gray-600 w-full rounded border border-gray-400 py-[10px]"
               >
                 <div class="w-[28px] mr-[12px]">
                   <img
@@ -48,7 +48,7 @@
             <li class="mb-[12px]">
               <button
                 type="button"
-                class="flex items-center pl-[17%] text-[#595959] w-full rounded border border-[#BFBFBF] py-[10px]"
+                class="flex items-center pl-[17%] text-gray-600 w-full rounded border border-gray-400 py-[10px]"
               >
                 <div class="w-[28px] mr-[12px]">
                   <img
@@ -63,7 +63,7 @@
             <li class="mb-[12px]">
               <button
                 type="button"
-                class="flex items-center pl-[17%] text-[#595959] w-full rounded border border-[#BFBFBF] py-[10px]"
+                class="flex items-center pl-[17%] text-gray-600 w-full rounded border border-gray-400 py-[10px]"
               >
                 <div class="w-[28px] mr-[12px]">
                   <img
@@ -78,7 +78,7 @@
             <li class="">
               <button
                 type="button"
-                class="flex items-center pl-[17%] text-[#595959] w-full rounded border border-[#BFBFBF] py-[10px]"
+                class="flex items-center pl-[17%] text-gray-600 w-full rounded border border-gray-400 py-[10px]"
               >
                 <div class="w-[28px] mr-[12px]">
                   <img
@@ -93,7 +93,7 @@
           </ul>
 
           <div>
-            <h3 class="text-[#595959] font-medium text-center mb-[18px]">
+            <h3 class="text-gray-600 font-medium text-center mb-[18px]">
               使用 HiSKIO ID 登入
             </h3>
 
@@ -115,7 +115,7 @@
 
                 <div 
                   v-if="errorMessages.account"
-                  class="text-xs text-[#E34A4A]"
+                  class="text-xs text-hiskio-red"
                 >{{ errorMessages.account }}</div>
               </div>
 
@@ -136,14 +136,14 @@
 
                 <div 
                   v-if="errorMessages.password"
-                  class="text-xs text-[#E34A4A]"
+                  class="text-xs text-hiskio-red"
                 >{{ errorMessages.password }}</div>
               </div>
             </div>
 
             <div class="flex items-center mb-[26px]">
               <input v-model="form.confirm" type="checkbox" class="mr-[6px]" />
-              <p class="text-sm text-[#8C8C8C] mb-[2px]">
+              <p class="text-sm text-gray-500 mb-[2px]">
                 登入註冊即代表您同意<span class="underline cursor-pointer"
                   >使用者及隱私權政策</span
                 >
@@ -152,7 +152,7 @@
 
             <button
               type="button"
-              class="w-full py-[8px] text-center rounded-md bg-[#178FAC] text-white mb-[20px]"
+              class="w-full py-[8px] text-center rounded-md bg-primary text-white mb-[20px]"
               @click="login"
             >
               登入
@@ -160,7 +160,7 @@
 
             <button
               type="button"
-              class="w-full text-center rounded-md text-[#8C8C8C]"
+              class="w-full text-center rounded-md text-gray-500"
             >
               忘記密碼
             </button>
@@ -293,13 +293,13 @@ export default Vue.extend({
 
   .button-group {
     button.active {
-      @apply relative text-[#178FAC];
+      @apply relative text-primary;
 
       &::after {
         @apply absolute left-1/2 bottom-0
           transform -translate-x-1/2
           w-[80px] h-[4px]
-          bg-[#178FAC];
+          bg-primary;
         content: '';
       }
     }
