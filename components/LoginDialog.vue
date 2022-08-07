@@ -98,32 +98,46 @@
             </h3>
 
             <div class="mb-[20px]">
-              <div class="flex items-center py-[10px] mb-[8px]">
-                <img
-                  class="block w-[20px] mr-[8px]"
-                  src="@/assets/images/account.svg"
-                />
-                <input
-                  v-model="form.account"
-                  type="text"
-                  placeholder="請輸入 HiSKIO ID"
-                  class="flex-1 text-sm"
-                  @blur="handleValidate('account')"
-                />
+              <div>
+                <div class="flex items-center py-[10px] mb-[8px]">
+                  <img
+                    class="block w-[20px] mr-[8px]"
+                    src="@/assets/images/account.svg"
+                  />
+                  <input
+                    v-model="form.account"
+                    type="text"
+                    placeholder="請輸入 HiSKIO ID"
+                    class="flex-1 text-sm"
+                    @blur="handleValidate('account')"
+                  />
+                </div>
+
+                <div 
+                  v-if="errorMessages.account"
+                  class="text-xs text-[#E34A4A]"
+                >{{ errorMessages.account }}</div>
               </div>
 
-              <div class="flex items-center py-[10px]">
-                <img
-                  class="block w-[20px] mr-[8px]"
-                  src="@/assets/images/lock.svg"
-                />
-                <input
-                  v-model="form.password"
-                  type="text"
-                  placeholder="請輸入登入密碼"
-                  class="flex-1 text-sm"
-                  @blur="handleValidate('password')"
-                />
+              <div>
+                <div class="flex items-center py-[10px]">
+                  <img
+                    class="block w-[20px] mr-[8px]"
+                    src="@/assets/images/lock.svg"
+                  />
+                  <input
+                    v-model="form.password"
+                    type="password"
+                    placeholder="請輸入登入密碼"
+                    class="flex-1 text-sm"
+                    @blur="handleValidate('password')"
+                  />
+                </div>
+
+                <div 
+                  v-if="errorMessages.password"
+                  class="text-xs text-[#E34A4A]"
+                >{{ errorMessages.password }}</div>
               </div>
             </div>
 
@@ -181,6 +195,8 @@ const DEFAULT_FORM = {
   confirm: false,
 }
 
+type FormColumn = 'account' | 'password' | 'confirm'
+
 const rules = {
   account: accountRule,
   password: passwordRule,
@@ -197,7 +213,7 @@ export default Vue.extend({
   data() {
     return {
       form: _.cloneDeep(DEFAULT_FORM),
-      errorMessage: '',
+      errorMessages: _.cloneDeep(DEFAULT_FORM),
     }
   },
   watch: {
@@ -212,7 +228,7 @@ export default Vue.extend({
   mounted() {},
   methods: {
     async login() {
-      if (!this.form.confirm || !(await this.handleValidate())) {
+      if (!(await this.handleValidate()) || !this.form.confirm) {
         return
       }
 
@@ -223,13 +239,15 @@ export default Vue.extend({
           confirm: this.form.confirm,
         })
         setToken(data.access_token)
+        // @ts-ignore:next-line
+        this.$store.dispatch('fetchUser')
         console.log('login', data)
         this.$emit('close')
       } catch (error) {
         console.log('login error ', error)
       }
     },
-    async handleValidate(type?: string): Promise<boolean> {
+    async handleValidate(type?: FormColumn): Promise<boolean> {
       const descriptor = type ? _.pick(rules, [type]) : rules
       const form = type ? _.pick(this.form, [type]) : this.form
 
@@ -240,14 +258,28 @@ export default Vue.extend({
 
       // 驗證通過
       if (!errors) {
-        this.errorMessage = ''
+        if (type) {
+          // @ts-ignore:next-line
+          this.errorMessages[type] = ''
+        } else {
+          this.errorMessages = _.cloneDeep(DEFAULT_FORM)
+        }
         return true
       }
 
       // 驗證失敗
-      const message = _.get(_.head(errors), 'message', '')
-      this.errorMessage = message
-      console.log('errors ', errors)
+      if (type) {
+        const message = _.get(_.head(errors), 'message', '');
+        // @ts-ignore:next-line
+        this.errorMessages[type] = message;
+        console.log('errorMessages', this.errorMessages);
+      } else {
+        _.forEach(errors, ({ field, message }) => {
+          // @ts-ignore:next-line
+          this.errorMessages[field] = message;
+        });
+        console.log('errorMessages', this.errorMessages);
+      }
 
       return false
     },

@@ -25,9 +25,6 @@ export default Vue.extend({
       required: true,
     },
   },
-  data() {},
-  mounted() {},
-  methods: {},
 })
 </script>
 

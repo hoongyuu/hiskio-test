@@ -24,6 +24,7 @@ export default Vue.extend({
   },
   computed: {
     me() {
+      // @ts-ignore:next-line
       return this.$store.state.user
     },
   },

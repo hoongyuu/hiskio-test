@@ -223,11 +223,25 @@ export default Vue.extend({
       carts: {},
     }
   },
-  computed: {},
+  computed: {
+    isLogin() {
+      // @ts-ignore:next-line
+      return this.$store.getters.isLogin
+    },
+  },
+  watch: {
+    isLogin(newVal) {
+      if (!newVal) {
+        return
+      }
+
+      this.getCarts()
+    }
+  },
   async mounted() {
-    await this.me()
+    // @ts-ignore:next-line
+    await this.$store.dispatch('fetchUser')
     this.fetchCourses()
-    this.getCarts()
   },
   methods: {
     getThousandSeparator,
@@ -242,16 +256,6 @@ export default Vue.extend({
         console.log('login', data)
       } catch (error) {
         console.log('login error ', error)
-      }
-    },
-    async me() {
-      try {
-        const data = await getMe()
-        this.$store.commit('setUser', data)
-
-        console.log(this.$store.state.user)
-      } catch (error) {
-        console.log('me error ', error)
       }
     },
     async fetchCourses() {
