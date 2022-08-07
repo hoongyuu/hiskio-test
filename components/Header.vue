@@ -103,11 +103,7 @@
                 <div
                   class="w-[40px] h-[40px] rounded-full overflow-hidden mr-[20px]"
                 >
-                  <img
-                    class="img-center"
-                    :src="user.avatar"
-                    alt="大頭貼"
-                  />
+                  <img class="img-center" :src="user.avatar" alt="大頭貼" />
                 </div>
                 <h3 class="text-gray-700 font-medium">{{ user.username }}</h3>
               </div>

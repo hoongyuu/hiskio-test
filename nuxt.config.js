@@ -2,8 +2,8 @@ const routerBase =
   process.env.DEPLOY_ENV === 'GH_PAGES'
     ? {
         router: {
-          base: '/hiskio-test/'
-        }
+          base: '/hiskio-test/',
+        },
       }
     : {}
 

@@ -154,12 +154,12 @@
               </p>
             </div>
 
-              <div
-                v-if="errorMessages.confirm"
-                class="text-center text-xs text-hiskio-red mb-[10px]"
-              >
-                {{ errorMessages.confirm }}
-              </div>
+            <div
+              v-if="errorMessages.confirm"
+              class="text-center text-xs text-hiskio-red mb-[10px]"
+            >
+              {{ errorMessages.confirm }}
+            </div>
 
             <button
               type="button"
