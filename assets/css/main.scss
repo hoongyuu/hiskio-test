@@ -1,4 +1,30 @@
+body {
+  @apply font-sans;
+}
+
+input,
+button {
+  outline: none;
+}
+
 .container {
   max-width: 1180px;
   margin: 0 auto;
+}
+
+.img-center {
+  @apply w-full h-full object-cover object-center;
+}
+
+.hiskio-shadow {
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+// vue fade transition
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }

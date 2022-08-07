@@ -3,7 +3,7 @@
     <div>
       <div>
         <div>
-          <img src="" alt="course-cover">
+          <img src="" alt="course-cover" />
         </div>
         <h3>SQL Server實戰效能調校第四部曲：縱橫交易處理</h3>
       </div>
@@ -15,7 +15,7 @@
           <div>募資優惠</div>
         </div>
         <button type="button">
-          <img src="@/assets/images/delete.svg" alt="delete icon">
+          <img src="@/assets/images/delete.svg" alt="delete icon" />
         </button>
       </div>
     </div>
@@ -30,17 +30,13 @@ export default Vue.extend({
   props: {
     data: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
-  data() {
-  },
-  mounted() {
-  },
-  methods: {
-  }
+  data() {},
+  mounted() {},
+  methods: {},
 })
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

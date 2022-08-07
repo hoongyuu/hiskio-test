@@ -9,17 +9,16 @@ module.exports = {
       colors: {
         primary: '#e2b26e',
         'mtv-primary': {
-          DEFAULT: '#ffb715'
+          DEFAULT: '#ffb715',
         },
       },
-      backgroundColor: theme => ({
-        ...theme('colors')
+      backgroundColor: (theme) => ({
+        ...theme('colors'),
       }),
-      borderColor: theme => ({
-        ...theme('colors')
-      })
-    }
+      borderColor: (theme) => ({
+        ...theme('colors'),
+      }),
+    },
   },
-  variants: {
-  }
-};
+  variants: {},
+}

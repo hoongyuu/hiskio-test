@@ -1,17 +1,17 @@
-import { LoginRequest } from "./interfaces";
-import { request } from '@/utils';
+import { LoginRequest } from './interfaces'
+import { request } from '@/utils'
 
-export function login (data: LoginRequest): Promise<any> {
+export function login(data: LoginRequest): Promise<any> {
   return request({
     url: '/auth/login',
     method: 'post',
-    data
-  });
-} 
+    data,
+  })
+}
 
-export function getMe (): Promise<any> {
+export function getMe(): Promise<any> {
   return request({
     url: '/me',
-    method: 'get'
-  });
+    method: 'get',
+  })
 }

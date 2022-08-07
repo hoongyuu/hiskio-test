@@ -1,8 +1,8 @@
-import { request } from '@/utils';
+import { request } from '@/utils'
 
-export function getCourses (): Promise<any> {
+export function getCourses(): Promise<any> {
   return request({
     url: '/courses/fundraising',
     method: 'get',
-  });
+  })
 }
