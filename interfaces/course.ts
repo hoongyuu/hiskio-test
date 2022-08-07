@@ -1,10 +1,10 @@
-interface CoursePrice {
+export interface CoursePrice {
   fundraising: boolean
   price: number
   schedule_at: string
 }
 
-interface lecture {
+export interface Lecturer {
   id: number
   username: string
   avatar: string
@@ -18,5 +18,5 @@ export interface Course {
   fundraising_tickets: number
   consumers: number
   prices: CoursePrice[]
-  lectures: lecture[]
+  lecturers: Lecturer[]
 }

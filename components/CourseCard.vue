@@ -55,8 +55,8 @@
           <div
             class="flex justify-between text-sm text-[#595959] mb-[12px] md:mb-[6px]"
           >
-            <div class="hidden md:block">剩 3 天</div>
-            <div>已募資55%</div>
+            <div class="hidden md:block">{{ remainDay }}</div>
+            <div>已募資{{ fundraisingRatio }}%</div>
           </div>
 
           <div
@@ -64,7 +64,10 @@
           >
             <div class="bg-[#F0F0F0] absolute inset-0"></div>
             <div
-              class="progress-bar-active absolute inset-y-0 w-[50%] rounded-full"
+              class="progress-bar-active absolute inset-y-0 rounded-full"
+              :style="{
+                width: `${fundraisingRatio > 100 ? 100 : fundraisingRatio}%`
+              }"
             ></div>
           </div>
         </div>
@@ -73,9 +76,9 @@
           <div
             class="text-sm text-[#434343] font-medium md:text-[22px] mr-[5px]"
           >
-            $1,500
+            ${{ getThousandSeparator(currentPrice.price) }}
           </div>
-          <div class="text-sm text-[#BFBFBF] line-through">$5,500</div>
+          <div class="text-sm text-[#BFBFBF] line-through">${{ getThousandSeparator(course.fixed_price) }}</div>
         </div>
       </div>
     </div>
@@ -88,9 +91,13 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import dayjs from "dayjs";
+import dayjs, { extend } from "dayjs";
+import duration from 'dayjs/plugin/duration';
 import _ from "lodash";
-import { Course } from '@/interfaces';
+import { Course, CoursePrice, Lecturer } from '@/interfaces';
+import { getThousandSeparator } from "@/utils";
+
+extend(duration)
 
 export default Vue.extend({
   name: 'ComponentsCourseCard',
@@ -101,18 +108,28 @@ export default Vue.extend({
     },
   },
   data() {
-    return {}
+    return {
+    }
   },
   computed: {
-    currentPrices() {
-      return _.find(this.course.prices, price => dayjs().isBefore(dayjs(price.schedule_at)))
+    currentPrice(): CoursePrice {
+      return _.find(this.course.prices, price => dayjs().isBefore(dayjs(price.schedule_at))) as CoursePrice
     },
-    currentLecturer() {
-      return _.head(this.course.lecturers)
+    currentLecturer(): Lecturer {
+      return _.head(this.course.lecturers) as Lecturer
+    },
+    remainDay(): string {
+      const diffDuration = dayjs((this.currentPrice).schedule_at).diff(dayjs())
+      return dayjs.duration(diffDuration).format('剩 DD 天')
+    },
+    fundraisingRatio(): string {
+      return ((this.course.consumers / this.course.fundraising_tickets) * 100).toFixed(0)
     }
   },
   mounted() {},
-  methods: {},
+  methods: {
+    getThousandSeparator,
+  },
 })
 </script>
 
