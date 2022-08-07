@@ -1,9 +1,13 @@
 <template>
   <div
-    :class="['hamburger', {
-      'is-active': active
-    }]
-  ">
+    :class="[
+      'hamburger',
+      {
+        'is-active': active,
+      },
+    ]"
+    @click="$emit('show', !active)"
+  >
     <span class="line"></span>
     <span class="line"></span>
     <span class="line"></span>
@@ -18,39 +22,47 @@ export default Vue.extend({
   props: {
     active: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
-  data() {
-  },
-  mounted() {
-  },
-  methods: {
-  }
+  data() {},
+  mounted() {},
+  methods: {},
 })
 </script>
 
 <style lang="scss">
 .hamburger {
-  .line{
-    width: 50px;
-    height: 5px;
-    background-color: #ecf0f1;
+  .line {
+    width: 18px;
+    height: 2px;
+    background-color: #8c8c8c;
     display: block;
     margin: 8px auto;
+    border-radius: 9999px;
     transition: all 0.3s ease-in-out;
+
+    &:nth-child(1) {
+      margin: 0 auto 4px;
+    }
+    &:nth-child(2) {
+      margin: 4px auto;
+    }
+    &:nth-child(3) {
+      margin: 4px auto 0;
+    }
   }
 
   &.is-active {
     .line {
-      &:nth-child(2){
+      &:nth-child(2) {
         opacity: 0;
       }
-      &:nth-child(1){
-        transform: translateY(13px) rotate(45deg);
+      &:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
       }
-      &:nth-child(3){
-        transform: translateY(-13px) rotate(-45deg);
+      &:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
       }
     }
   }
