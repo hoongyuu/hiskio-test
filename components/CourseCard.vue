@@ -75,7 +75,7 @@
           <div
             class="text-sm text-[#434343] font-medium md:text-[22px] mr-[5px]"
           >
-            ${{ getThousandSeparator(currentPrice.price) }}
+            ${{ getThousandSeparator(course.price) }}
           </div>
           <div class="text-sm text-[#BFBFBF] line-through">
             ${{ getThousandSeparator(course.fixed_price) }}
