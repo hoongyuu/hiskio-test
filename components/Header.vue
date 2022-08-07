@@ -93,7 +93,7 @@
       <transition name="fade">
         <div
           v-if="showMenu"
-          class="md:hidden fixed top-[49px] inset-x-0 z-[9998] overflow-auto max-h-[calc(100vh-49px)] bg-[#E5E5E5]"
+          class="md:hidden fixed top-[49px] inset-x-0 z-[9998] overflow-auto h-[calc(100vh-49px)] bg-[#E5E5E5]"
         >
           <template v-if="isLogin">
             <div class="bg-[#EFF5F8] px-[14px]">
@@ -105,11 +105,11 @@
                 >
                   <img
                     class="img-center"
-                    src="https://picsum.photos/seed/picsum/50/50"
+                    :src="user.avatar"
                     alt="大頭貼"
                   />
                 </div>
-                <h3 class="text-gray-700 font-medium">Mike Chen</h3>
+                <h3 class="text-gray-700 font-medium">{{ user.username }}</h3>
               </div>
 
               <nav>
@@ -165,7 +165,7 @@
           </template>
 
           <template v-else>
-            <nav>
+            <nav class="px-[14px]">
               <ul class="pt-[23px] pb-[16px] border-b border-[#D9D9D9]">
                 <li>
                   <button type="button" class="py-[16px] text-gray-700">
@@ -180,7 +180,7 @@
               </ul>
             </nav>
 
-            <ul>
+            <ul class="px-[14px]">
               <li>
                 <button
                   type="button"
