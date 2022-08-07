@@ -3,7 +3,7 @@ import { request } from '@/utils'
 export function addCart(data: any): Promise<any> {
   return request({
     url: '/carts',
-    method: 'get',
+    method: 'post',
     data,
   })
 }
