@@ -6,7 +6,7 @@ export function getCarts(): Promise<any> {
     method: 'post',
     data: {
       items: [],
-      coupons: []
+      coupons: [],
     },
   })
 }

@@ -44,7 +44,11 @@
                     {{ cart.name }}
                   </h3>
 
-                  <button type="button" class="md:hidden min-w-[24px]" @click="deleteCart(cart.id)">
+                  <button
+                    type="button"
+                    class="md:hidden min-w-[24px]"
+                    @click="deleteCart(cart.id)"
+                  >
                     <img
                       src="@/assets/images/delete.svg"
                       alt="delete icon"
@@ -56,8 +60,15 @@
 
               <div class="hidden md:block md:col-span-3">
                 <div class="flex flex-col justify-center items-center h-full">
-                  <div v-if="cart.subtotal !== cart.total" class="text-sm text-[#BFBFBF] line-through">{{ getThousandSeparator(cart.subtotal) }}</div>
-                  <div class="text-lg text-[#8C8C8C]">{{ getThousandSeparator(cart.total) }}</div>
+                  <div
+                    v-if="cart.subtotal !== cart.total"
+                    class="text-sm text-[#BFBFBF] line-through"
+                  >
+                    {{ getThousandSeparator(cart.subtotal) }}
+                  </div>
+                  <div class="text-lg text-[#8C8C8C]">
+                    {{ getThousandSeparator(cart.total) }}
+                  </div>
                   <div
                     v-if="cart.subtotal !== cart.total"
                     class="text-sm text-[#434343] rounded border border-[#434343] px-[3px]"
@@ -71,7 +82,9 @@
                 class="flex justify-between items-center md:block md:col-span-2"
               >
                 <div class="flex items-center md:hidden">
-                  <div class="text-sm text-[#8C8C8C] mr-[6px]">{{ getThousandSeparator(cart.total) }}</div>
+                  <div class="text-sm text-[#8C8C8C] mr-[6px]">
+                    {{ getThousandSeparator(cart.total) }}
+                  </div>
                   <div
                     v-if="cart.subtotal !== cart.total"
                     class="text-xs text-[#434343] rounded border border-[#434343] px-[3px]"
@@ -89,7 +102,11 @@
               <div class="hidden md:block md:col-span-1">
                 <div class="flex justify-center items-center h-full">
                   <button type="button">
-                    <img src="@/assets/images/delete.svg" alt="delete icon" @click="deleteCart(cart.id)" />
+                    <img
+                      src="@/assets/images/delete.svg"
+                      alt="delete icon"
+                      @click="deleteCart(cart.id)"
+                    />
                   </button>
                 </div>
               </div>
@@ -114,23 +131,11 @@
                 <div class="flex">
                   <input
                     type="text"
-                    class="
-                      flex-1 md:flex-none
-                      border border-[#BFBFBF] 
-                      rounded 
-                      mr-[12px] px-[8px] 
-                      h-[40px] md:w-[calc(100%-76px)] md:min-h-full
-                    "
+                    class="flex-1 md:flex-none border border-[#BFBFBF] rounded mr-[12px] px-[8px] h-[40px] md:w-[calc(100%-76px)] md:min-h-full"
                   />
                   <button
                     type="button"
-                    class="
-                      hidden md:flex md:justify-center md:items-center 
-                      rounded 
-                      text-[#E34A4A] 
-                      bg-[#FFE6E6] 
-                      w-[76px] h-[40px]
-                    "
+                    class="hidden md:flex md:justify-center md:items-center rounded text-[#E34A4A] bg-[#FFE6E6] w-[76px] h-[40px]"
                   >
                     確定
                   </button>
@@ -145,7 +150,9 @@
             <div class="">
               <div class="flex justify-between mb-[52px] md:mb-[10px]">
                 <h4 class="text-[#8C8C8C]">金額</h4>
-                <span class="text-sm text-[#595959]">${{ getThousandSeparator(carts.subtotal || 0) }}</span>
+                <span class="text-sm text-[#595959]"
+                  >${{ getThousandSeparator(carts.subtotal || 0) }}</span
+                >
               </div>
 
               <div
@@ -194,7 +201,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import _ from 'lodash'
-import { login, getCourses, getMe, getCarts, deleteCart, addCart } from '@/services/api'
+import {
+  login,
+  getCourses,
+  getMe,
+  getCarts,
+  deleteCart,
+  addCart,
+} from '@/services/api'
 import { setToken, getThousandSeparator } from '@/utils'
 import CourseCard from '@/components/CourseCard.vue'
 
@@ -206,7 +220,7 @@ export default Vue.extend({
   data() {
     return {
       courses: [],
-      carts: {}
+      carts: {},
     }
   },
   computed: {},
@@ -263,7 +277,7 @@ export default Vue.extend({
       try {
         const data = await addCart({
           items: [{ id, coupon: '' }],
-          coupons: []
+          coupons: [],
         })
         this.getCarts()
         console.log('addCart ', data)
@@ -271,18 +285,19 @@ export default Vue.extend({
         console.log('addCart error ', error)
       }
     },
-    deleteCart: _.debounce(async function(id: number) {
+    deleteCart: _.debounce(async function (id: number) {
       try {
         const data = await deleteCart({
           items: [{ id, coupon: '' }],
-          coupons: []
+          coupons: [],
         })
+        // @ts-ignore:next-line
         this.getCarts()
         console.log('deleteCart ', data)
       } catch (error) {
         console.log('deleteCart error', error)
       }
-    }, 200)
+    }, 200),
   },
 })
 </script>

@@ -203,7 +203,6 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import _ from 'lodash'
 import { User } from '@/interfaces'
 import Hamburger from '@/components/Hamburger.vue'
 
@@ -225,8 +224,9 @@ export default Vue.extend({
   },
   computed: {
     isLogin() {
+      // @ts-ignore:next-line
       return this.$store.getters.isLogin
-    }
+    },
   },
   watch: {
     showMenu(newShow) {

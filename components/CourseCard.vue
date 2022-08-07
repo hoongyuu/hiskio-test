@@ -6,11 +6,7 @@
       <div
         class="course-card-header relative w-[140px] h-[70px] md:w-full md:h-auto mr-[8px] md:mr-0 rounded-lg md:rounded-none overflow-hidden"
       >
-        <img
-          class="img-center"
-          :src="course.image"
-          alt="課程圖片"
-        />
+        <img class="img-center" :src="course.image" alt="課程圖片" />
 
         <button
           type="button"
@@ -49,7 +45,9 @@
               alt="導師大頭貼"
             />
           </div>
-          <h4 class="hidden md:block text-[#8C8C8C]">{{ currentLecturer?.username }}</h4>
+          <h4 class="hidden md:block text-[#8C8C8C]">
+            {{ currentLecturer?.username }}
+          </h4>
         </div>
 
         <div class="mb-[12px] md:mb-[10px]">
@@ -67,7 +65,7 @@
             <div
               class="progress-bar-active absolute inset-y-0 rounded-full"
               :style="{
-                width: `${fundraisingRatio > 100 ? 100 : fundraisingRatio}%`
+                width: `${fundraisingRatio > 100 ? 100 : fundraisingRatio}%`,
               }"
             ></div>
           </div>
@@ -79,7 +77,9 @@
           >
             ${{ getThousandSeparator(currentPrice.price) }}
           </div>
-          <div class="text-sm text-[#BFBFBF] line-through">${{ getThousandSeparator(course.fixed_price) }}</div>
+          <div class="text-sm text-[#BFBFBF] line-through">
+            ${{ getThousandSeparator(course.fixed_price) }}
+          </div>
         </div>
       </div>
     </div>
@@ -92,11 +92,11 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import dayjs, { extend } from "dayjs";
-import duration from 'dayjs/plugin/duration';
-import _ from "lodash";
-import { Course, CoursePrice, Lecturer } from '@/interfaces';
-import { getThousandSeparator } from "@/utils";
+import dayjs, { extend } from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+import _ from 'lodash'
+import { Course, CoursePrice, Lecturer } from '@/interfaces'
+import { getThousandSeparator } from '@/utils'
 
 extend(duration)
 
@@ -105,27 +105,31 @@ export default Vue.extend({
   props: {
     course: {
       type: Object as PropType<Course>,
-      required: true
+      required: true,
     },
   },
   data() {
-    return {
-    }
+    return {}
   },
   computed: {
     currentPrice(): CoursePrice {
-      return _.find(this.course.prices, price => dayjs().isBefore(dayjs(price.schedule_at))) as CoursePrice
+      return _.find(this.course.prices, (price) =>
+        dayjs().isBefore(dayjs(price.schedule_at))
+      ) as CoursePrice
     },
     currentLecturer(): Lecturer {
       return _.head(this.course.lecturers) as Lecturer
     },
     remainDay(): string {
-      const diffDuration = dayjs((this.currentPrice).schedule_at).diff(dayjs())
+      const diffDuration = dayjs(this.currentPrice.schedule_at).diff(dayjs())
       return dayjs.duration(diffDuration).format('剩 DD 天')
     },
     fundraisingRatio(): string {
-      return ((this.course.consumers / this.course.fundraising_tickets) * 100).toFixed(0)
-    }
+      return (
+        (this.course.consumers / this.course.fundraising_tickets) *
+        100
+      ).toFixed(0)
+    },
   },
   mounted() {},
   methods: {

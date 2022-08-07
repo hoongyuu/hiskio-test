@@ -167,19 +167,24 @@
 <script lang="ts">
 import Vue from 'vue'
 import _ from 'lodash'
-import { setToken, validate, account as accountRule, password as passwordRule } from '@/utils'
+import {
+  setToken,
+  validate,
+  account as accountRule,
+  password as passwordRule,
+} from '@/utils'
 import { login } from '@/services/api'
 
 const DEFAULT_FORM = {
   account: '',
   password: '',
-  confirm: false
+  confirm: false,
 }
 
 const rules = {
   account: accountRule,
   password: passwordRule,
-};
+}
 
 export default Vue.extend({
   name: 'ComponentsLoginDialog',
@@ -204,9 +209,7 @@ export default Vue.extend({
       document.body.style.overflow = 'auto'
     },
   },
-  mounted() {
-    
-  },
+  mounted() {},
   methods: {
     async login() {
       if (!this.form.confirm || !(await this.handleValidate())) {
@@ -227,27 +230,27 @@ export default Vue.extend({
       }
     },
     async handleValidate(type?: string): Promise<boolean> {
-      const descriptor = type ? _.pick(rules, [type]) : rules;
-      const form = type ? _.pick(this.form, [type]) : this.form;
+      const descriptor = type ? _.pick(rules, [type]) : rules
+      const form = type ? _.pick(this.form, [type]) : this.form
 
       if (_.isEmpty(descriptor)) {
-        return false;
+        return false
       }
-      const { errors } = await validate(descriptor, form);
+      const { errors } = await validate(descriptor, form)
 
       // 驗證通過
       if (!errors) {
-        this.errorMessage = '';
-        return true;
+        this.errorMessage = ''
+        return true
       }
 
       // 驗證失敗
-      const message = _.get(_.head(errors), 'message', '');
-      this.errorMessage = message;
+      const message = _.get(_.head(errors), 'message', '')
+      this.errorMessage = message
       console.log('errors ', errors)
 
-      return false;
-    }
+      return false
+    },
   },
 })
 </script>
