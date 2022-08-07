@@ -8,7 +8,7 @@
       >
         <img
           class="img-center"
-          src="https://picsum.photos/seed/picsum/280/153"
+          :src="course.image"
           alt="課程圖片"
         />
 
@@ -33,7 +33,7 @@
         <h3
           class="hidden md:block text-xl leading-[29px] text-[#454545] font-medium mb-[5px]"
         >
-          NUXT.js 前端開發實戰手冊前端開發前端開發前
+          {{ course.title }}
         </h3>
 
         <div
@@ -44,11 +44,11 @@
           >
             <img
               class="img-center"
-              src="https://picsum.photos/seed/picsum/50/50"
+              :src="currentLecturer?.avatar"
               alt="導師大頭貼"
             />
           </div>
-          <h4 class="hidden md:block text-[#8C8C8C]">Chris</h4>
+          <h4 class="hidden md:block text-[#8C8C8C]">{{ currentLecturer?.username }}</h4>
         </div>
 
         <div class="mb-[12px] md:mb-[10px]">
@@ -81,23 +81,36 @@
     </div>
 
     <h3 class="md:hidden font-medium text-[#454545]">
-      GA 流量掘金術｜成長駭客新手村
+      {{ course.title }}
     </h3>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
+import dayjs from "dayjs";
+import _ from "lodash";
+import { Course } from '@/interfaces';
 
 export default Vue.extend({
   name: 'ComponentsCourseCard',
   props: {
-    data: {
-      type: Object,
-      default: () => ({}),
+    course: {
+      type: Object as PropType<Course>,
+      required: true
     },
   },
-  data() {},
+  data() {
+    return {}
+  },
+  computed: {
+    currentPrices() {
+      return _.find(this.course.prices, price => dayjs().isBefore(dayjs(price.schedule_at)))
+    },
+    currentLecturer() {
+      return _.head(this.course.lecturers)
+    }
+  },
   mounted() {},
   methods: {},
 })

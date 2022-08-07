@@ -177,8 +177,9 @@
 
         <div class="md:grid md:grid-cols-4 md:gap-4">
           <course-card
-            v-for="(item, index) in 4"
-            :key="index"
+            v-for="course in courses"
+            :key="course.id"
+            :course="course"
             class="mb-[12px] md:mb-0"
           />
         </div>
@@ -198,13 +199,13 @@ export default Vue.extend({
   components: {
     CourseCard,
   },
-  computed: {
-    dsa() {
-      return {}
-    },
+  data() {
+    return {
+      courses: []
+    }
   },
-  async mounted() {
-    await this.login()
+  computed: {},
+  mounted() {
     this.me()
     this.fetchCourses()
   },
@@ -235,6 +236,7 @@ export default Vue.extend({
     async fetchCourses() {
       try {
         const data = await getCourses()
+        this.courses = data
         console.log('fetchCourses', data)
       } catch (error) {
         console.log('fetchCourses error ', error)

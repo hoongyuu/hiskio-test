@@ -104,6 +104,7 @@
                   src="@/assets/images/account.svg"
                 />
                 <input
+                  v-model="form.account"
                   type="text"
                   placeholder="請輸入 HiSKIO ID"
                   class="flex-1 text-sm"
@@ -116,6 +117,7 @@
                   src="@/assets/images/lock.svg"
                 />
                 <input
+                  v-model="form.password"
                   type="text"
                   placeholder="請輸入登入密碼"
                   class="flex-1 text-sm"
@@ -135,6 +137,7 @@
             <button
               type="button"
               class="w-full py-[8px] text-center rounded-md bg-[#178FAC] text-white mb-[20px]"
+              @click="login"
             >
               登入
             </button>
@@ -161,6 +164,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import _ from 'lodash'
+import { setToken } from '@/utils'
+import { login } from '@/services/api'
+
+const DEFAULT_FORM = {
+  account: '',
+  password: ''
+}
 
 export default Vue.extend({
   name: 'ComponentsLoginDialog',
@@ -170,7 +181,11 @@ export default Vue.extend({
       required: true,
     },
   },
-  data() {},
+  data() {
+    return {
+      form: _.cloneDeep(DEFAULT_FORM)
+    }
+  },
   watch: {
     show(newShow) {
       if (newShow) {
@@ -180,8 +195,24 @@ export default Vue.extend({
       document.body.style.overflow = 'auto'
     },
   },
-  mounted() {},
-  methods: {},
+  mounted() {
+    
+  },
+  methods: {
+    async login() {
+      try {
+        const data = await login({
+          account: 'Cheeto',
+          password: 'dsadsa123123',
+          confirm: true,
+        })
+        setToken(data.access_token)
+        console.log('login', data)
+      } catch (error) {
+        console.log('login error ', error)
+      }
+    },
+  },
 })
 </script>
 
