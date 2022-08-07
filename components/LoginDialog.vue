@@ -260,7 +260,7 @@ export default Vue.extend({
         const data = await login({
           account: this.form.account,
           password: this.form.password,
-          confirm: this.form.confirm,
+          confirm: !!this.form.confirm,
         })
         setToken(data.access_token)
         // @ts-ignore:next-line
