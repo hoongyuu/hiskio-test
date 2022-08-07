@@ -10,10 +10,10 @@ module.exports = {
         primary: '#178FAC',
         'hiskio-red': '#E34A4A',
         gray: {
-          '400': '#BFBFBF',
-          '500': '#8C8C8C',
-          '600': '#595959',
-          '700': '#434343',
+          400: '#BFBFBF',
+          500: '#8C8C8C',
+          600: '#595959',
+          700: '#434343',
         },
       },
       backgroundColor: (theme) => ({

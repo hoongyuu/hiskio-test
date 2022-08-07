@@ -37,8 +37,12 @@
 
       <template v-if="isLogin">
         <div class="hidden md:flex md:items-center">
-          <button type="button" class="mr-[16px] text-gray-600">我想開課</button>
-          <button type="button" class="mr-[16px] text-gray-600">我想學習</button>
+          <button type="button" class="mr-[16px] text-gray-600">
+            我想開課
+          </button>
+          <button type="button" class="mr-[16px] text-gray-600">
+            我想學習
+          </button>
           <button type="button" class="mr-[16px]">
             <img src="@/assets/images/cart.svg" alt="購物車" />
           </button>
@@ -50,7 +54,9 @@
 
       <template v-else>
         <div class="hidden md:flex md:items-center">
-          <button type="button" class="mr-[16px] text-gray-600">我想開課</button>
+          <button type="button" class="mr-[16px] text-gray-600">
+            我想開課
+          </button>
 
           <div class="flex items-center">
             <button

@@ -14,18 +14,17 @@ export const mutations = {
   },
 }
 
-
 export const actions = {
-  async fetchUser (context: any) {
+  async fetchUser(context: any) {
     try {
-      const data = await getMe();
-      context.commit('setUser', data);
+      const data = await getMe()
+      context.commit('setUser', data)
     } catch (error) {
-      console.log('fetchUser', error);
+      console.log('fetchUser', error)
       removeToken()
     }
-  }
-};
+  },
+}
 
 export const getters = {
   isLogin(state: State) {

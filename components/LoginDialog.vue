@@ -113,10 +113,12 @@
                   />
                 </div>
 
-                <div 
+                <div
                   v-if="errorMessages.account"
                   class="text-xs text-hiskio-red"
-                >{{ errorMessages.account }}</div>
+                >
+                  {{ errorMessages.account }}
+                </div>
               </div>
 
               <div>
@@ -134,10 +136,12 @@
                   />
                 </div>
 
-                <div 
+                <div
                   v-if="errorMessages.password"
                   class="text-xs text-hiskio-red"
-                >{{ errorMessages.password }}</div>
+                >
+                  {{ errorMessages.password }}
+                </div>
               </div>
             </div>
 
@@ -269,16 +273,16 @@ export default Vue.extend({
 
       // 驗證失敗
       if (type) {
-        const message = _.get(_.head(errors), 'message', '');
+        const message = _.get(_.head(errors), 'message', '')
         // @ts-ignore:next-line
-        this.errorMessages[type] = message;
-        console.log('errorMessages', this.errorMessages);
+        this.errorMessages[type] = message
+        console.log('errorMessages', this.errorMessages)
       } else {
         _.forEach(errors, ({ field, message }) => {
           // @ts-ignore:next-line
-          this.errorMessages[field] = message;
-        });
-        console.log('errorMessages', this.errorMessages);
+          this.errorMessages[field] = message
+        })
+        console.log('errorMessages', this.errorMessages)
       }
 
       return false

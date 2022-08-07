@@ -204,7 +204,6 @@ import _ from 'lodash'
 import {
   login,
   getCourses,
-  getMe,
   getCarts,
   deleteCart,
   addCart,
@@ -236,7 +235,7 @@ export default Vue.extend({
       }
 
       this.getCarts()
-    }
+    },
   },
   async mounted() {
     // @ts-ignore:next-line
