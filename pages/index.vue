@@ -112,7 +112,7 @@
               </div>
             </div>
 
-            <div v-if="!carts.data" class="py-[16px] text-center text-gray-400">
+            <div v-if="emptyCarts" class="py-[16px] text-center text-gray-400">
               暫無資料
             </div>
           </div>
@@ -230,6 +230,10 @@ export default Vue.extend({
     isLogin() {
       // @ts-ignore:next-line
       return this.$store.getters.isLogin
+    },
+    emptyCarts() {
+      // @ts-ignore:next-line
+      return !this.carts || _.isEmpty(this.carts.data)
     },
   },
   watch: {
