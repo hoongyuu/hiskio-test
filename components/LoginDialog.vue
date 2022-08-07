@@ -128,7 +128,7 @@
             </div>
 
             <div class="flex items-center mb-[26px]">
-              <input type="checkbox" class="mr-[6px]" />
+              <input v-model="form.confirm" type="checkbox" class="mr-[6px]" />
               <p class="text-sm text-[#8C8C8C] mb-[2px]">
                 登入註冊即代表您同意<span class="underline cursor-pointer"
                   >使用者及隱私權政策</span
@@ -172,7 +172,8 @@ import { login } from '@/services/api'
 
 const DEFAULT_FORM = {
   account: '',
-  password: ''
+  password: '',
+  confirm: false
 }
 
 const rules = {
@@ -208,7 +209,7 @@ export default Vue.extend({
   },
   methods: {
     async login() {
-      if (!(await this.handleValidate())) {
+      if (!this.form.confirm || !(await this.handleValidate())) {
         return
       }
 
@@ -216,7 +217,7 @@ export default Vue.extend({
         const data = await login({
           account: this.form.account,
           password: this.form.password,
-          confirm: true,
+          confirm: this.form.confirm,
         })
         setToken(data.access_token)
         console.log('login', data)
