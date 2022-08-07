@@ -111,6 +111,10 @@
                 </div>
               </div>
             </div>
+
+            <div v-if="!carts.data" class="py-[16px] text-center text-gray-400">
+              暫無資料
+            </div>
           </div>
         </div>
 
