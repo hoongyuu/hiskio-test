@@ -1,31 +1,37 @@
 <template>
   <header
-    class="
-      sticky top-0 left-0 inset-x-0 z-50
-      flex items-center
-      bg-white 
-      h-[50px]
-    "
+    class="sticky top-0 left-0 inset-x-0 z-50 flex items-center bg-white h-[50px]"
   >
-    <div class="container flex justify-between items-center">
+    <div class="container flex justify-between items-center px-[15px] md:px-0">
       <div class="flex items-center">
-        <div class="w-[100px] mr-[9px]">
-          <img class="w-full" src="@/assets/images/logo.webp" alt="logo">
+        <!-- Header Logo -->
+        <div class="w-[66px] md:w-[100px] mr-[9px]">
+          <img class="w-full" src="@/assets/images/logo.webp" alt="logo" />
         </div>
 
-        <template v-if="!isLogin">
+        <div v-if="!isLogin" class="hidden md:flex md:items-center">
           <div class="w-[80px] mr-[16px]">
-            <img class="w-full" src="@/assets/images/recruit.webp" alt="徵才中">
+            <img
+              class="w-full"
+              src="@/assets/images/recruit.webp"
+              alt="徵才中"
+            />
           </div>
           <div class="flex items-center mr-[16px]">
-            <img class="block w-[20px] mr-[4px]" src="@/assets/images/grid.svg">
+            <img
+              class="block w-[20px] mr-[4px]"
+              src="@/assets/images/grid.svg"
+            />
             課程
           </div>
-        </template>
+        </div>
 
         <div class="relative pl-[20px]">
-          <input type="text" placeholder="搜尋">
-          <img class="absolute top-1/2 left-0 transform -translate-y-1/2 w-[20px]" src="@/assets/images/search.svg">
+          <input class="hidden md:block" type="text" placeholder="搜尋" />
+          <img
+            class="absolute top-1/2 left-0 transform -translate-y-1/2 w-[20px]"
+            src="@/assets/images/search.svg"
+          />
         </div>
       </div>
 
@@ -34,37 +40,97 @@
           <button type="button" class="mr-[16px]">我想開課</button>
           <button type="button" class="mr-[16px]">我想學習</button>
           <button type="button" class="mr-[16px]">
-            <img src="@/assets/images/cart.svg" alt="購物車">
+            <img src="@/assets/images/cart.svg" alt="購物車" />
           </button>
           <div class="w-[32px]">
-            <img class="w-full" :src="user.avatar" alt="大頭貼">
+            <img class="w-full" :src="user.avatar" alt="大頭貼" />
           </div>
         </div>
       </template>
 
       <template v-else>
         <div class="flex items-center">
-          <button type="button" class="mr-[16px]">我想開課</button>
-          <button type="button" class="mr-[38px]">
-            <img src="@/assets/images/cart.svg" alt="購物車">
+          <button type="button" class="hidden md:block mr-[16px]">
+            我想開課
+          </button>
+          <button type="button" class="mr-[13px] md:mr-[38px]">
+            <img src="@/assets/images/cart.svg" alt="購物車" />
           </button>
 
-          <div class="flex items-center">
-            <button 
-              type="button" 
+          <hamburger
+            class="block mt-[2px] md:hidden"
+            :active="showMenu"
+            @show="showMenu = $event"
+          />
+
+          <div class="hidden md:flex md:items-center">
+            <button
+              type="button"
               class="rounded-md text-sm text-[#178FAC] border border-[#178FAC] w-[64px] h-[32px] mr-[16px]"
+              @click="$emit('showLogin')"
             >
               登入
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               class="rounded-md text-sm text-white border border-[#178FAC] bg-[#178FAC] w-[64px] h-[32px] mr-[16px]"
+              @click="$emit('showLogin')"
             >
               註冊
             </button>
           </div>
         </div>
       </template>
+
+      <!-- menu -->
+      <transition name="fade">
+        <div
+          v-if="showMenu"
+          class="md:hidden fixed top-[49px] inset-x-0 z-[9998] min-h-[calc(100vh-49px)] bg-[#E5E5E5] px-[14px]"
+        >
+          <nav>
+            <ul class="pt-[23px] pb-[16px] border-b border-[#D9D9D9]">
+              <li>
+                <button
+                  type="button"
+                  class="py-[16px] font-medium text-[#434343]"
+                >
+                  探索課程
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="py-[16px] font-medium text-[#434343]"
+                >
+                  企業方案
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <ul>
+            <li>
+              <button
+                type="button"
+                class="py-[16px] font-medium text-[#434343]"
+                @click="$emit('showLogin')"
+              >
+                登入
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="py-[16px] font-medium text-[#178FAC]"
+                @click="$emit('showLogin')"
+              >
+                註冊
+              </button>
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
   </header>
 </template>
@@ -72,24 +138,27 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { User } from '@/interfaces'
+import Hamburger from '@/components/Hamburger.vue'
 
 export default Vue.extend({
   name: 'ComponentsHeader',
+  components: {
+    Hamburger,
+  },
   props: {
     user: {
       type: Object as PropType<User>,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
-      isLogin: true
+      isLogin: false,
+      showMenu: false,
     }
   },
-  mounted() {
-  },
-  methods: {
-  }
+  mounted() {},
+  methods: {},
 })
 </script>
 
