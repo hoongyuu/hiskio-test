@@ -1,3 +1,4 @@
+import { CartRequest } from './interfaces'
 import { request } from '@/utils'
 
 export function getCarts(): Promise<any> {
@@ -11,7 +12,7 @@ export function getCarts(): Promise<any> {
   })
 }
 
-export function addCart(data: any): Promise<any> {
+export function addCart(data: CartRequest): Promise<any> {
   return request({
     url: '/carts',
     method: 'post',
@@ -19,7 +20,7 @@ export function addCart(data: any): Promise<any> {
   })
 }
 
-export function deleteCart(data: any): Promise<any> {
+export function deleteCart(data: CartRequest): Promise<any> {
   return request({
     url: '/carts',
     method: 'delete',
