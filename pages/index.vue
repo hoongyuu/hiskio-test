@@ -206,13 +206,12 @@
 import Vue from 'vue'
 import _ from 'lodash'
 import {
-  login,
   getCourses,
   getCarts,
   deleteCart,
   addCart,
 } from '@/services/api'
-import { setToken, getThousandSeparator } from '@/utils'
+import { getThousandSeparator } from '@/utils'
 import CourseCard from '@/components/CourseCard.vue'
 
 export default Vue.extend({
@@ -252,19 +251,6 @@ export default Vue.extend({
   },
   methods: {
     getThousandSeparator,
-    async login() {
-      try {
-        const data = await login({
-          account: 'Cheeto',
-          password: 'dsadsa123123',
-          confirm: true,
-        })
-        setToken(data.access_token)
-        console.log('login', data)
-      } catch (error) {
-        console.log('login error ', error)
-      }
-    },
     async fetchCourses() {
       try {
         const data = await getCourses()
